@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet          # <-- fixed capitalization
 metadata:
   name: mysql
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: mysql
@@ -41,7 +41,7 @@ spec:
         volumeMounts:
           - name: mysql-persistent-storage
             mountPath: /var/lib/mysql
-      volumes:
+      volumes:                              # <-- fixed indentation (same level as containers)
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
@@ -55,4 +55,3 @@ spec:
     - port: 3306
   selector:
     app: mysql
-
